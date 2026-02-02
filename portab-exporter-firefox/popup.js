@@ -132,19 +132,3 @@ document.getElementById('export-pinned').addEventListener('click', exportPinnedT
 detectIncognito();
 
 console.log("Portab popup (Firefox) loaded");
-```
-
----
-
-# 🌐 CHROME VERSION
-
-## Folder Structure:
-```
-portab-exporter-chrome/
-├── manifest.json
-├── background.js
-├── popup.html
-├── popup.js
-├── icons/
-│   ├── icon-48.png
-│   └── icon-96.png
