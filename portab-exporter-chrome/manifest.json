@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Portab Session Exporter",
+  "version": "1.0.0",
+  "description": "Export your browser tabs as a portable .portab session file",
+
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "downloads",
+    "storage"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+    },
+    "default_title": "Export Session"
+  },
+
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  }
+}
