@@ -3,157 +3,879 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    body {
-      width: 320px;
-      padding: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      margin: 0;
+  @media (prefers-color-scheme: dark) {
+  :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9f9fb;
+      --text-primary: #15141a;
+      --text-secondary: #5b5b66;
+      --border-color: #e0e0e6;
+      --accent-primary: #0060df;
+      --accent-hover: #003eaa;
     }
 
-    h2 {
-      margin: 0 0 16px 0;
-      font-size: 16px;
-      font-weight: 600;
-      color: #333;
+    /* Dark mode detection */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #1c1b22;
+        --bg-secondary: #2b2a33;
+        --text-primary: #fbfbfe;
+        --text-secondary: #cfcfd8;
+        --border-color: #52525e;
+        --accent-primary: #0df;
+        --accent-hover: #80ebff;
+      }
     }
+  /* CSS Variables for theming */
+:root {
 
-    .privacy-section {
-      margin-bottom: 16px;
-      padding: 12px;
-      background: #f9f9fb;
-      border-radius: 6px;
-      border: 1px solid #e0e0e6;
-    }
 
-    .privacy-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #15141a;
-      cursor: pointer;
-    }
+  --border-color: #e0e0e6;
+  --border-subtle: #f0f0f4;
 
-    .privacy-label input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-    }
+  --button-bg: #f0f0f4;
+  --button-hover: #e0e0e6;
+  --button-active: #cfcfd8;
 
-    .privacy-hint {
-      margin-top: 6px;
-      font-size: 11px;
-      color: #5b5b66;
-      line-height: 1.4;
-    }
+  --success-bg: #e3f9e9;
+  --success-text: #0a6e31;
 
-    .incognito-badge {
-      display: none;
-      margin-top: 8px;
-      padding: 6px 10px;
-      background: #2d2d30;
-      color: white;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 500;
-    }
+  --error-bg: #ffe8e8;
+  --error-text: #c41e3a;
 
-    .incognito-badge.show {
-      display: inline-block;
-    }
+  --warning-bg: #fff4e6;
+  --warning-text: #a06500;
 
-    .button-group {
+  --info-bg: #e6f0ff;
+  --info-text: #0060df;
+
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 450px;
+  max-height: 600px;
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+/* ============================================ */
+/* HEADER */
+/* ============================================ */
+
+.header {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* ============================================ */
+/* TABS */
+/* ============================================ */
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.tab {
+  flex: 1;
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  position: relative;
+  transition: all 0.2s;
+  font-family: var(--font-family);
+}
+
+.tab:hover {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.tab.active {
+  color: var(--accent-primary);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-primary);
+}
+
+/* ============================================ */
+/* TAB CONTENT */
+/* ============================================ */
+
+.tab-content {
+  display: none;
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ============================================ */
+/* MAIN VIEW */
+/* ============================================ */
+
+.main-view {
+  display: block;
+}
+
+.main-view.hidden {
+  display: none;
+}
+
+.detail-view {
+  display: none;
+}
+
+.detail-view.active {
+  display: block;
+}
+
+/* ============================================ */
+/* OPTIONS SECTION */
+/* ============================================ */
+
+.options-section {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.option-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.option-group:last-child {
+  margin-bottom: 0;
+}
+
+.option-group-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.option-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+.option-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-left: 24px;
+  margin-top: -4px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.password-field {
+  margin-left: 24px;
+  margin-top: var(--spacing-sm);
+  display: none;
+}
+
+.password-field.show {
+  display: block;
+}
+
+.password-field input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.password-field input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 96, 223, 0.1);
+}
+
+.incognito-badge {
+  display: none;
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: #2d2d30;
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.incognito-badge.show {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============================================ */
+/* BUTTON SECTION */
+/* ============================================ */
+
+.button-section {
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.button-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     button {
       padding: 12px 16px;
-      font-size: 14px;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
-      background: #0060df;
-      color: white;
+      font-size: 14px;
       font-weight: 500;
+      cursor: pointer;
       transition: background 0.2s;
     }
 
-    button:hover {
-      background: #003eaa;
+    .btn-primary {
+      background: var(--accent-primary);
+      color: white;
     }
 
-    button:active {
-      background: #002275;
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border-color);
     }
 
     button:disabled {
-      background: #b1b1b3;
+      opacity: 0.5;
       cursor: not-allowed;
     }
 
-    .secondary {
-      background: #f0f0f4;
-      color: #15141a;
-    }
+/* ============================================ */
+/* FILE UPLOAD */
+/* ============================================ */
 
-    .secondary:hover {
-      background: #e0e0e6;
-    }
+.file-upload-area {
+  padding: var(--spacing-xl);
+  margin: var(--spacing-xl);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-tertiary);
+  transition: all 0.2s;
+}
 
-    .secondary:active {
-      background: #cfcfd8;
-    }
+.file-upload-area:hover {
+  border-color: var(--accent-primary);
+  background: var(--info-bg);
+}
 
-    .info {
-      margin-top: 16px;
-      padding: 12px;
-      background: #f0f0f4;
-      border-radius: 6px;
-      font-size: 12px;
-      color: #5b5b66;
-      display: none;
-    }
+.file-upload-area.drag-over {
+  border-color: var(--accent-primary);
+  background: var(--info-bg);
+}
 
-    .info.show {
-      display: block;
-    }
+.file-upload-area.has-file {
+  border-style: solid;
+  border-color: var(--accent-primary);
+  background: var(--info-bg);
+}
 
-    .success {
-      background: #e3f9e9;
-      color: #0a6e31;
-    }
+.file-upload-icon {
+  font-size: 32px;
+  margin-bottom: var(--spacing-sm);
+}
 
-    .error {
-      background: #ffe8e8;
-      color: #c41e3a;
-    }
+.file-upload-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.file-upload-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+#file-input {
+  display: none;
+}
+
+/* ============================================ */
+/* TAB LIST */
+/* ============================================ */
+
+.tab-list-header {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tab-list-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.back-button {
+  padding: 6px var(--spacing-md);
+  font-size: 12px;
+  background: var(--button-bg);
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-family);
+}
+
+.back-button:hover {
+  background: var(--button-hover);
+}
+
+.tab-list-container {
+  padding: var(--spacing-md) var(--spacing-xl);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.window-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.window-section:last-child {
+  margin-bottom: 0;
+}
+
+.window-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.window-header input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+.window-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.window-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: #2d2d30;
+  color: white;
+  border-radius: 3px;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 10px var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  transition: background 0.1s;
+}
+
+.tab-item:hover {
+  background: var(--bg-secondary);
+}
+
+.tab-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.tab-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+.tab-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.tab-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tab-title {
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-url {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-badges {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pin-badge {
+  width: 16px;
+  height: 16px;
+  display: none;
+}
+
+.pin-badge.show {
+  display: block;
+}
+
+.group-badge {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+  display: none;
+}
+
+.group-badge.show {
+  display: block;
+}
+
+/* ============================================ */
+/* FOOTER ACTIONS */
+/* ============================================ */
+
+.footer-actions {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  display: none;
+}
+
+.footer-actions.show {
+  display: block;
+}
+
+.footer-info {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.footer-buttons button {
+  flex: 1;
+}
+
+/* ============================================ */
+/* STATUS MESSAGE */
+/* ============================================ */
+
+.status-message {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: 12px;
+  border-top: 1px solid var(--border-color);
+  display: none;
+}
+
+.status-message.show {
+  display: block;
+}
+
+.status-message.success {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.status-message.error {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+.status-message.warning {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.status-message.info {
+  background: var(--info-bg);
+  color: var(--info-text);
+}
+
+/* ============================================ */
+/* SESSION INFO */
+/* ============================================ */
+
+.session-info {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: none;
+}
+
+.session-info.show {
+  display: block;
+}
+
+.session-info-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.session-info-details {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================ */
+/* DECRYPT SECTION */
+/* ============================================ */
+
+.decrypt-section {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--warning-bg);
+  border-bottom: 1px solid var(--border-color);
+  display: none;
+}
+
+.decrypt-section.show {
+  display: block;
+}
+
+.decrypt-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warning-text);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.decrypt-section input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: var(--font-family);
+  margin-bottom: var(--spacing-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.decrypt-section input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 96, 223, 0.1);
+}
+
+/* ============================================ */
+/* SCROLLBAR */
+/* ============================================ */
+
+.tab-content::-webkit-scrollbar,
+.tab-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tab-content::-webkit-scrollbar-track,
+.tab-list-container::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+
+.tab-content::-webkit-scrollbar-thumb,
+.tab-list-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.tab-content::-webkit-scrollbar-thumb:hover,
+.tab-list-container::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* ============================================ */
+/* DARK THEME ADJUSTMENTS */
+/* ============================================ */
+
+.dark-theme .group-badge {
+  border-color: rgba(255,255,255,0.1);
+}
+
+.dark-theme .file-upload-area {
+  border-color: var(--border-subtle);
+}
+
+.dark-theme .file-upload-area:hover {
+  border-color: var(--accent-primary);
+}
   </style>
 </head>
 <body>
-  <h2>📑 Export Browser Session</h2>
+  <!-- HEADER -->
+  <div class="header">
+    <h1>
+      <span>📑</span>
+      <span>Portab Session Manager</span>
+    </h1>
+    <div class="header-subtitle">Universal browser session import/export</div>
+  </div>
 
-  <div class="privacy-section">
-    <label class="privacy-label">
-      <input type="checkbox" id="privacy-mode">
-      <span>Privacy Mode</span>
-    </label>
-    <div class="privacy-hint">
-      Strip tracking parameters and hide tab titles
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" data-tab="export">Export</button>
+    <button class="tab" id="open-import">Import</button>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- EXPORT TAB -->
+  <!-- ========================================== -->
+
+  <div id="export-tab" class="tab-content active">
+    <!-- MAIN VIEW -->
+    <div class="main-view" id="export-main-view">
+      <!-- OPTIONS -->
+      <div class="options-section">
+        <div class="option-group">
+          <div class="option-group-title">Privacy Options</div>
+
+          <label class="option-label">
+            <input type="checkbox" id="privacy-mode">
+            <span>Privacy Mode</span>
+          </label>
+          <div class="option-hint">Strip tracking parameters and hide tab titles</div>
+
+          <div id="incognito-badge" class="incognito-badge">
+            <span>🕶️</span>
+            <span>Incognito detected - Privacy mode recommended</span>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <div class="option-group-title">Security Options</div>
+
+          <label class="option-label">
+            <input type="checkbox" id="secure-mode">
+            <span>🔒 Secure Mode (.sportab)</span>
+          </label>
+          <div class="option-hint">Encrypt file with password - hides ALL URLs and data</div>
+
+          <div id="password-field" class="password-field">
+            <input
+              type="password"
+              id="password-input"
+              placeholder="Enter encryption password (min 8 characters)"
+              autocomplete="new-password"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="button-section">
+        <div class="button-group">
+          <button class="btn-primary" id="export-current">Export Current Window</button>
+          <button class="btn-primary" id="export-all">Export All Windows</button>
+          <button class="btn-secondary" id="export-selected">Export Selected Tabs</button>
+          <button class="btn-secondary" id="export-pinned">Export Pinned Tabs</button>
+        </div>
+      </div>
     </div>
-    <div id="incognito-badge" class="incognito-badge">
-      🕶️ Incognito detected - Privacy mode recommended
+
+    <!-- DETAIL VIEW (Select Tabs) -->
+    <div class="detail-view" id="export-detail-view">
+      <div class="tab-list-header">
+        <div class="tab-list-title">Select tabs to export</div>
+        <button class="back-button" id="export-back-button">← Back</button>
+      </div>
+
+      <div class="tab-list-container" id="export-tab-list">
+        <!-- Dynamically populated -->
+      </div>
+
+      <div class="footer-actions" id="export-footer">
+        <div class="footer-info" id="export-selection-info">0 tabs selected</div>
+        <div class="footer-buttons">
+          <button class="btn-primary" id="export-selected-confirm" disabled>Export Selected</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="button-group">
-    <button id="export-current">Export Current Window</button>
-    <button id="export-all">Export All Windows</button>
-    <button id="export-pinned" class="secondary">Export Pinned Tabs Only</button>
+  <!-- ========================================== -->
+  <!-- IMPORT TAB -->
+  <!-- ========================================== -->
+
+  <div id="import-tab" class="tab-content">
+    <!-- MAIN VIEW (File Upload) -->
+    <div class="main-view" id="import-main-view">
+      <label for="file-input" class="file-upload-area" id="file-upload-area">
+        <div class="file-upload-icon">📂</div>
+        <div class="file-upload-text">Click to select file</div>
+        <div class="file-upload-hint">or drag and drop .portab or .sportab file</div>
+      </label>
+      <input type="file" id="file-input" accept=".portab,.sportab">
+    </div>
+
+    <!-- SESSION INFO -->
+    <div class="session-info" id="session-info">
+      <div class="session-info-title" id="session-info-title">Session Information</div>
+      <div class="session-info-details" id="session-info-details"></div>
+    </div>
+
+    <!-- DECRYPT SECTION -->
+    <div class="decrypt-section" id="decrypt-section">
+      <div class="decrypt-title">
+        <span>🔒</span>
+        <span>Encrypted File - Password Required</span>
+      </div>
+      <input
+        type="password"
+        id="decrypt-password"
+        placeholder="Enter decryption password"
+        autocomplete="off"
+      />
+      <button class="btn-primary" id="decrypt-button" style="width: 100%;">Decrypt File</button>
+    </div>
+
+    <!-- DETAIL VIEW (Select Tabs) -->
+    <div class="detail-view" id="import-detail-view">
+      <div class="tab-list-header">
+        <div class="tab-list-title">Select tabs to import</div>
+        <button class="back-button" id="import-back-button">← Back</button>
+      </div>
+
+      <div class="options-section" style="border-bottom: 1px solid #e0e0e6;">
+        <label class="option-label">
+          <input type="checkbox" id="restore-incognito" checked>
+          <span>Restore incognito windows as incognito</span>
+        </label>
+        <div class="option-hint">Uncheck to open all tabs in normal windows</div>
+      </div>
+
+      <div class="tab-list-container" id="import-tab-list">
+        <!-- Dynamically populated -->
+      </div>
+
+      <div class="footer-actions show" id="import-footer">
+        <div class="footer-info" id="import-selection-info">0 tabs selected</div>
+        <div class="footer-buttons">
+          <button class="btn-secondary" id="import-selected-confirm">Import Selected</button>
+          <button class="btn-primary" id="import-all-confirm">Import All</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div id="status" class="info"></div>
+  <!-- STATUS MESSAGE -->
+  <div class="status-message" id="status-message"></div>
 
   <script src="popup.js"></script>
 </body>
