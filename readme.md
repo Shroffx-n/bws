@@ -1,4 +1,4 @@
-# Browser Window Session
+# Browser Window Session                   ![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg) ![Spec License: CC-BY 4.0](https://img.shields.io/badge/spec-CC--BY%204.0-lightgrey.svg)
 
 > Transport an entire browser window across browsers, devices, and operating systems.
 
@@ -252,7 +252,11 @@ How to help-
 
 ## 📜 License
 
-MIT / Apache-2.0 
+- Implementation code: Apache 2.0 License
+- `.portab` file format specification: CC-BY 4.0
+
+The `.portab` format is an open standard intended for cross-browser,
+cross-platform session portability.
 
 ## 📣 Project Status
 
